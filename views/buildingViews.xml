@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <!--Start Tree View to Proveedor -->
+        <record model="ir.ui.view" id="view_building_list">
+            <field name="name">view.building.list</field>
+            <field name="model">hotel.building</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="List">
+                    <field name="number"/>
+                    <field name="apartment_ids"/>
+                </tree>
+            </field>
+        </record>
+        <!--End Tree View to Contenedor -->
+
+        <!-- Start Form View to Contenedor -->
+        <record model="ir.ui.view" id="view_building_form">
+            <field name="name">view.building.form</field>
+            <field name="model">hotel.building</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <form string="Form">
+                    <header>
+                        <!-- <field name="badge" widget="statusbar" options="{'clickable':1}"/> -->
+                    </header>
+                    <sheet>
+                        <group colspan="4">
+
+                            <field name="number"/>
+                            <field name="apartment_ids"/>
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+       
+    </data>
+</odoo> 

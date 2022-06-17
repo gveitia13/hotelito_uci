@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+
+        <!--Start Action for Proveedor  -->
+        <record model="ir.actions.act_window" id="action_request">
+            <field name="name">Solicitudes</field>
+            <field name="res_model">hotel.request</field>            <!--Este es el modelo que va a utilizar-->
+            <field name="view_mode">kanban,tree,form</field>            <!--Estas son las vistas que va a disparar-->
+        </record>
+        <!--End Action for Proveedor  -->
+
+        <!--Start Action for Producto  -->
+        <record model="ir.actions.act_window" id="action_apartment">
+            <field name="name">Apartamentos</field>
+            <field name="res_model">hotel.apartment</field>            <!--Este es el modelo que va a utilizar-->
+            <field name="view_mode">tree,form</field>            <!--Estas son las vistas que va a disparar-->
+        </record>
+        <!--End Action for Producto  -->
+        <record model="ir.actions.act_window" id="action_building">
+            <field name="name">Edificios</field>
+            <field name="res_model">hotel.building</field>            <!--Este es el modelo que va a utilizar-->
+            <field name="view_mode">tree,form</field>            <!--Estas son las vistas que va a disparar-->
+        </record>
+        <!-- Start Action for Tipo  -->
+        <record model="ir.actions.act_window" id="action_guest">
+            <field name="name">Huesped</field>
+            <field name="res_model">hotel.guest</field>            
+            <field name="view_mode">tree,form</field>           
+        </record>
+        <!--End Action for Tipo -->
+
+        <menuitem id="menu_parent" name="Hotel UCI" sequence="10"/>
+        <menuitem id="menu_request" name="Solicitudes" parent="menu_parent" sequence="5" action="action_request"/>
+        <menuitem id="menu_apartament" name="Apartamentos" parent="menu_parent" action="action_apartment"/>
+        <menuitem id="menu_building" name="Edificios" sequence="7" parent="menu_parent" action="action_building"/>
+        <menuitem id="menu_guest" name="Huespedes" parent="menu_parent" action="action_guest"/>
+        <menuitem id="menu_report" name="Reportes" parent="menu_parent" action="action_guest"/>
+        <menuitem id="menu_manteined" name="Apartamentos en Mantenimiento" parent="menu_report" action="action_guest"/>
+        <menuitem id="menu_close" name="Cierre Mensual"  parent="menu_report" action="action_guest"/>
+        <menuitem id="menu_dayli" name="Reporte Diario"  parent="menu_report" action="action_guest"/>
+    </data>
+</odoo>

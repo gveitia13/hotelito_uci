@@ -1,0 +1,240 @@
+<odoo>
+    <data>
+
+        <!--Start Tree View to Proveedor -->
+        <record model="ir.ui.view" id="view_request_list">
+            <field name="name">view.request.list</field>
+            <field name="model">hotel.request</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="List">
+                    <field name="number"/>
+                    <field name="motive"/>
+                    <field name="init_date"/>
+                    <field name="end_date"/>
+                    <field name="state"/>
+                    <field name="level"/>
+                </tree>
+            </field>
+        </record>
+        <!--End Tree View to Contenedor -->
+
+        <!-- Start Form View to Contenedor -->
+        <record model="ir.ui.view" id="view_request_form">
+            <field name="name">view.request.form</field>
+            <field name="model">hotel.request</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="number" required="1"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="init_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                            </group>
+                            <group>
+                                <field name="level"/>
+                                <field name="state"/>
+                            </group>
+                            <group>
+                                <field name="motive"/>
+                            </group>
+                            <group>
+                                <field name="amount"/>
+                                <field name="ingreso"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Huespedes de la Solicitud">
+                                <field name="guest_ids" widget="section_and_note_one2many">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="lastname"/>
+                                        <field name="identified" />
+                                        <field name="origin"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="request_kanban_view_leads" model="ir.ui.view">
+            <field name="name">request.kanban.lead</field>
+            <field name="model">hotel.request</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column o_opportunity_kanban" on_create="quick_create" quick_create_view="core_hotel.quick_create_request_form" archivable="false" sample="1">
+                    <field name="guest_ids"/>
+                    <field name="level"/>
+                    <field name="number"/>
+                    <field name="motive"/>
+                    <field name="init_date"/>
+                    <field name="end_date"/>
+                    <progressbar field="state" colors='{"accept": "success", "pending": "warning", "canceled": "danger"}' help="This bar allows to filter the opportunities based on scheduled activities."/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_color_0 oe_kanban_global_click oe_kanban_card d-flex flex-column o_kanban_record oe_kanban_card_muted">
+                                <div class="ribbon ribbon-top-right">
+                                    <span class='bg-success' t-if="record.number.value" t-esc="record.number.value">
+                                    </span>
+                                </div>
+
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable">
+                                            <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                        </t>
+                                        <t t-if="widget.deletable">
+                                            <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                        </t>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_content flex-grow-1">
+                                    <div class="o_kanban_record_title oe_kanban_details">
+                                        <strong>
+                                            Solicitud de hospedaje
+                                        </strong>
+                                    </div>
+                                    <!-- <div class="o_kanban_record_subtitle">
+                                        <field name="expected_revenue"/>
+                                    </div> -->
+                                    <div>
+                                        <span class="o_text_overflow" t-if="record.motive.value" t-esc="record.motive.value"></span>
+                                    </div>
+                                    <div>
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_footer">
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="priority" widget="priority" groups="base.group_user"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="quick_create_request_form" model="ir.ui.view">
+            <field name="name">hotel.request.form.quick_create</field>
+            <field name="model">hotel.request</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="number"/>
+                        <field name="level"/>
+                        <field name="motive"/>
+                        <field name="init_date"/>
+                        <field name="end_date"/>
+                        <div class="o_row">
+                            <field name="priority" class="oe_inline" nolabel="1" widget="priority"/>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!-- End Form View to Contenedor -->
+        <!-- Me quede aqui -->
+        <!-- Start Kanban View to Contenedor -->
+        <!-- <record model="ir.ui.view" id="view_proveedor_kanban">
+            <field name="name">view.proveedor.kanban</field>
+            <field name="model">proveedor</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="denominacion"/>
+                    <field name="area"/>
+                    <field name="pais"/>
+                    <field name="nacionalidad"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('proveedor','image', record.id.raw_value)" alt="Image"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+
+                                            <strong>
+                                                <span>Denominación: </span>
+                                            </strong>
+                                            <field name="denominacion"/>
+                                            <br/>
+                                            <strong>
+                                                <span>Área: </span>
+                                            </strong>
+                                            <field name="area"/>
+                                            <br/>
+                                            <strong>
+                                                <span>País: </span>
+                                            </strong>
+                                            <field name="pais"/>
+                                            <br/>
+                                            <strong>
+                                                <span>Nacionalidad: </span>
+                                            </strong>
+                                            <field name="nacionalidad"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        End Kanban View to Contenedor 
+
+    Start the search View 
+    <record model="ir.ui.view" id="view_proveedor_search">
+        <field name="model">proveedor</field>
+        <field name="name">view.proveedor.search</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="denominacion" string="por la denominacion"/>
+                <field name="area" string="por el area"/>
+                <field name="nacionalidad" string="por la nacionalidad"/>
+            </search>
+        </field>
+    </record> -->
+        <!--End the search View-->
+
+        <!--Start the grahp View-->
+        <!-- <record model="ir.ui.view" id="view_proveedor_grahp">
+            <field name="model">proveedor</field>
+            <field name="name">view.proveedor.search</field>
+            <field name="arch" type="xml">
+                <graph string="Analizis de Proveedores">
+                    <field name="peso" string="Por el peso"/>
+                </graph>
+            </field>
+        </record> -->
+        <!--End the grahp View-->
+
+    </data>
+</odoo> 

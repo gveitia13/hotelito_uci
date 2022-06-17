@@ -1,0 +1,127 @@
+<odoo>
+    <data>
+
+        <!--Start Tree View to Proveedor -->
+        <record model="ir.ui.view" id="view_apartment_list">
+            <field name="name">view.apartment.list</field>
+            <field name="model">hotel.apartment</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="List">
+                    <field name="number"/>
+                    <field name="building_id"/>
+                    <field name="capacity"/>
+                    <field name="apartment_state"/>
+                </tree>
+            </field>
+        </record>
+        <!--End Tree View to Contenedor -->
+
+        <!-- Start Form View to Contenedor -->
+        <record model="ir.ui.view" id="view_apartment_form">
+            <field name="name">view.apartment.form</field>
+            <field name="model">hotel.apartment</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <form string="Form">
+                    <header>
+                        <!-- <field name="badge" widget="statusbar" options="{'clickable':1}"/> -->
+                    </header>
+                    <sheet>
+                        <group colspan="4">
+                            <group>
+                                <field name="number"/>
+                                <field name="building_id"/>
+                                <field name="capacity"/>
+                                <field name="apartment_state"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- End Form View to Contenedor -->
+        <!-- Me quede aqui -->
+        <!-- Start Kanban View to Contenedor -->
+        <!-- <record model="ir.ui.view" id="view_producto_kanban">
+            <field name="name">view.producto.kanban</field>
+            <field name="model">producto</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="number"/>
+                    <field name="building"/>
+                    <field name="capacity"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('producto','image', record.id.raw_value)" alt="Image"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong>
+                                                <span>Nombre: </span>
+                                            </strong>
+                                            <field name="nombre"/>
+                                            <br/>
+                                            <strong>
+                                                <span>Precio: </span>
+                                            </strong>
+                                            <field name="precio"/>
+                                            <br/>
+                                            <strong>
+                                                <span>Cantidad: </span>
+                                            </strong>
+                                            <field name="cantidad"/>
+                                            <br/>
+                                            <strong>
+                                                <span>Unidad: </span>
+                                            </strong>
+                                            <field name="unidad"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record> -->
+        <!-- End Kanban View to Contenedor -->
+
+        <!--Start the search View -->
+        <!-- <record model="ir.ui.view" id="view_proveedor_search">
+            <field name="model">producto</field>
+            <field name="name">view.producto.search</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="denominacion" string="por la denominacion"/>
+                    <field name="area" string="por el area"/>
+                    <field name="nacionalidad" string="por la nacionalidad"/>
+                </search>
+            </field>
+        </record> -->
+        <!--End the search View-->
+
+        <!--Start the grahp View-->
+        <!-- <record model="ir.ui.view" id="view_proveedor_grahp">
+            <field name="model">producto</field>
+            <field name="name">view.producto.search</field>
+            <field name="arch" type="xml">
+                <graph string="Analizis de Proveedores">
+                    <field name="peso" string="Por el peso"/>
+                </graph>
+            </field>
+        </record> -->
+        <!--End the grahp View-->
+
+    </data>
+</odoo> 
