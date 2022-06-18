@@ -2,7 +2,7 @@ from odoo import models, fields
 
 class Solicitudes(models.Model):
     _name = "hotel.request"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    # _inherit = ['mail.thread', 'mail.activity.mixin']
     
     
     number = fields.Integer('Numero de Solicitud', required=True)
